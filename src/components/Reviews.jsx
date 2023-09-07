@@ -14,6 +14,21 @@ const Reviews = () => {
     order: "",
   });
 
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("individualReview-animation");
+      } else {
+        entry.target.classList.remove("individualReview-animation");
+      }
+    });
+  });
+
+  const viewbox = document.querySelectorAll(".individualReview");
+  viewbox.forEach((image) => {
+    observer.observe(image);
+  });
+
   useEffect(() => {
     setIsLoading(true);
     fetchReviews(category, sortBy, orderBy).then((review) => {
